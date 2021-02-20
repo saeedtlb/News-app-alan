@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import alanBtn from '@alan-ai/alan-sdk-web'
+require('dotenv').config()
 
-function App() {
+import actionByCommand from './command'
+import Cards from './components/Cards'
+
+const App = () => {
+  useEffect(() => {
+    alanBtn({
+      key: process.env.ALEN_KEY,
+      onCommand: actionByCommand
+    })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className="logo_container">
+        <img src="/alan-logo.png" alt="alan-logo" />
+      </div>
+      <Cards />
+    </>
+  )
 }
 
-export default App;
+export default App
