@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Grow, Typography } from '@material-ui/core'
 
 import NewsCard from './NewsCard'
+import useStyles from './styles/cardStyle'
 
 const infoCards = [
   { color: '#00838f', title: 'Latest News', text: 'Give me the latest news' },
@@ -26,12 +27,14 @@ const infoCards = [
 ]
 
 const Cards = ({ articles, activeArticle }) => {
-  return articles.length ? (
+  const classes = useStyles()
+
+  return !articles.length ? (
     <Grow in>
-      <Grid container alignItems="stretch" spacing={3}>
-        {infoCards.map((info) => (
-          <Grid item xs={12} sm={6} lg={3}>
-            <div style={{ background: info.color }}>
+      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+        {infoCards.map((info, i) => (
+          <Grid item className={classes.infoCard} xs={12} sm={6} lg={3} key={i}>
+            <div className={classes.card} style={{ background: info.color }}>
               <Typography variant="h5" component="h5">
                 {info.title}
               </Typography>
@@ -52,10 +55,10 @@ const Cards = ({ articles, activeArticle }) => {
     </Grow>
   ) : (
     <Grow in>
-      <Grid container alignItems="stretch" spacing={3}>
+      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         {articles.map((article, i) => (
-          <Grid item xs={12} sm={6} lg={3}>
-            <NewsCard activeArticle={activeArticle} newsNumber={i + 1} article={article} />
+          <Grid item xs={12} sm={6} lg={3} key={i} style={{ display: 'flex' }}>
+            <NewsCard activeArticle={activeArticle} newsNumber={i} article={article} />
           </Grid>
         ))}
       </Grid>
