@@ -11,9 +11,16 @@ const App = () => {
   const [activeArticle, setActiveArticle] = useState(0)
 
   useEffect(() => {
-    alanBtn({
+    let alanBtnInstance = alanBtn({
       key: process.env.REACT_APP_ALEN_KEY,
-      onCommand: (command) => actionByCommand(command, setArticles, setActiveArticle)
+      onCommand: (command) => actionByCommand(command, setArticles, setActiveArticle, alanBtnInstance),
+      onConnectionStatus: async (status) => {
+        console.log(85, status)
+        if (status === 'authorized') {
+          await alanBtnInstance.activate()
+          alanBtnInstance.playText('Hey, this is Alan')
+        }
+      }
     })
   }, [])
 
