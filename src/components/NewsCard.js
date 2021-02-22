@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, createRef } from 'react'
 import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography } from '@material-ui/core'
 
 import useStyles from './styles/newsCardStyle'
@@ -10,8 +10,21 @@ const NewsCard = ({
 }) => {
   const classes = useStyles()
 
+  const [elRefs, setElRefs] = useState([])
+
+  useEffect(() => {
+    setElRefs((refs) => new Array(20).fill().map((_, i) => refs[i] || createRef()))
+  }, [])
+
+  useEffect(() => {
+    activeArticle === newsNumber && elRefs[activeArticle] && scrollToElement(elRefs[activeArticle])
+    // if (activeArticle === newsNumber && elRefs[activeArticle]) scrollToElement(elRefs[activeArticle])
+  }, [activeArticle, newsNumber, elRefs])
+
+  const scrollToElement = (ref) => window.scrollTo(0, ref.current.offsetTop - 50)
+
   return (
-    <Card className={activeArticle === newsNumber ? classes.activeCard : classes.card}>
+    <Card ref={elRefs[newsNumber]} className={activeArticle === newsNumber ? classes.activeCard : classes.card}>
       <CardActionArea href={url} target="_blank">
         <CardMedia
           className={classes.media}
