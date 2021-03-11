@@ -18,7 +18,6 @@ const NewsCard = ({
 
   useEffect(() => {
     activeArticle === newsNumber && elRefs[activeArticle] && scrollToElement(elRefs[activeArticle])
-    // if (activeArticle === newsNumber && elRefs[activeArticle]) scrollToElement(elRefs[activeArticle])
   }, [activeArticle, newsNumber, elRefs])
 
   const scrollToElement = (ref) => window.scrollTo(0, ref.current.offsetTop - 50)

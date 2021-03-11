@@ -1,4 +1,3 @@
-// import alanBtn from '@alan-ai/alan-sdk-web'
 import wordsToNumbers from 'words-to-numbers'
 
 const actionByCommand = ({ command, articles, number, color }, setArticles, setActiveArticle, alanBtnInstance) => {
@@ -15,13 +14,10 @@ const actionByCommand = ({ command, articles, number, color }, setArticles, setA
       const article = articles[parseNumber - 1]
 
       if (parseNumber > articles.length)
-        // alanBtn().playText(`There is no article number ${parseNumber}, please try that again...`)
         alanBtnInstance.playText(`There is no article number ${parseNumber}, please try that again...`)
       else if (article) {
         window.open(article.url)
-        // alanBtn().playText('Opening...')
         alanBtnInstance.playText('Opening...')
-        //   } else alanBtn().playText('Please try that again...')
       } else alanBtnInstance.playText('Please try that again...')
       break
     case 'change':
